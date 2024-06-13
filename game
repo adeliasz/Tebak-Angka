@@ -1,0 +1,8 @@
+from tebak_angka_game import TebakAngkaGame
+
+def main():
+    game = TebakAngkaGame()
+    game.play()
+
+if __name__ == "__main__":
+    main()
