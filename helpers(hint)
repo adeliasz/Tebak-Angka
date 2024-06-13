@@ -1,0 +1,12 @@
+import random
+
+def get_hint(tebakan, acak):
+    jarak = abs(tebakan - acak)
+    if jarak <= 5:
+        return "Sangat Dekat!"
+    elif jarak <= 7:
+        return "Dekat!"
+    elif jarak <= 20:
+        return "Sangat Jauh!"
+    else:
+        return "Jauh!"
