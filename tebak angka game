@@ -1,0 +1,51 @@
+import random
+from helpers import get_hint
+
+class Game:
+    # Metode dan properti kelas induk
+    def __init__(self):
+        self.acak = random.randint(1, 100)
+        self.kesempatan = 10
+        self.jumlah_hint_diberikan = 0
+        self.gunakan_hint = self.ask_hint_usage()
+
+    def ask_hint_usage(self):
+        gunakan_hint = input("Apakah Anda ingin menggunakan fitur hint? (ya/tidak): ").strip().lower()
+        return gunakan_hint == "ya"
+
+    def play(self):
+        print("Selamat datang di permainan Tebak Angka!")
+
+        while self.kesempatan > 0:
+            try:
+                data = int(input("Masukkan angka tebakan: "))
+            except ValueError:
+                print("Input tidak valid. Masukkan angka antara 1 hingga 100.")
+                continue
+
+            if data < 1 or data > 100:
+                print("Input tidak valid. Masukkan angka antara 1 hingga 100.")
+                continue
+
+            if data > self.acak:
+                self.kesempatan -= 1
+                print("Angka tebakan nilainya lebih kecil")
+            elif data < self.acak:
+                self.kesempatan -= 1
+                print("Angka tebakan nilainya lebih besar")
+            else:
+                print("Selamat, tebakanmu benar!")
+                break
+
+            print(f'Tersisa {self.kesempatan} kesempatan lagi')
+            if self.gunakan_hint and self.jumlah_hint_diberikan < 3:
+                print(f'Hint: {get_hint(data, self.acak)}\n')
+                self.jumlah_hint_diberikan += 1
+
+        if self.kesempatan == 0:
+            print("Kesempatan telah habis, Kamu Kalah!")
+            print(f"Angka yang benar adalah {self.acak}")
+
+# Definisi kelas anak yang mewarisi kelas induk
+class TebakAngkaGame(Game):
+    pass
